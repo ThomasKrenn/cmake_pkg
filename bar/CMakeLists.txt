@@ -1,11 +1,4 @@
-#
-# Simple CMake package with two targets (Bar::Bar1 and Bar::Bar2)
-# that can be used from the build tree. The consumer only has to set 
-# the CMAKE_PREFIX_PATH variable to <bar build_tree>/cmake.
-#
-
 cmake_minimum_required (VERSION 3.12)
-project(BAR)
 
 # cd <buildir>
 # cmake -DCMAKE_INSTALL_PREFIX=<install dir> -G  "Visual Studio 16 2019" -A x64 ..
@@ -15,15 +8,23 @@ project(BAR)
 #
 
 
+#
+# Simple CMake package with two targets (Bar::Bar1 and Bar::Bar2)
+# that can be used from the build tree.  
+# Set the CMAKE_PREFIX_PATH variable to import the <bar install tree>.
+#
+project(BAR)
+
+
 message("CMAKE_SYSTEM_NAME: ${CMAKE_SYSTEM_NAME}")
 
 set_property(GLOBAL PROPERTY USE_FOLDERS ON)
 set_property(GLOBAL PROPERTY PREDEFINED_TARGETS_FOLDER "CMakeBuild")
 set_property(GLOBAL PROPERTY AUTOGEN_TARGETS_FOLDER CMakeMoc)
 
-set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/x64)
-set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/x64)
-set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/x64)
+#set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/x64)
+#set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/x64)
+#set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/x64)
 
 #
 # global property component
