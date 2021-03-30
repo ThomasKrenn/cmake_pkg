@@ -1,0 +1,19 @@
+set(BAR_VERSION 1.2.3)
+
+@PACKAGE_INIT@
+
+# include(CMakeFindDependencyMacro)
+# find_dependency(Qt5Gui @REQUIRED_QT_VERSION@)
+
+include("${CMAKE_CURRENT_LIST_DIR}/BarTargets.cmake")
+
+macro(set_found _NAME _COMPONENTS)
+  foreach(comp ${${_COMPONENTS}})  
+    set(${_NAME}_${comp}_FOUND TRUE)
+  endforeach()
+endmacro()
+
+set(BAR_COMPONENTS @BUILD_COMPONENTS@)
+set_found(BAR BAR_COMPONENTS)
+
+check_required_components(BAR)
