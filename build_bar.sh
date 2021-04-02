@@ -19,7 +19,7 @@ then
  mkdir bar_install
 fi
 
-install_path="/home/tom/github.com/cmake_pkg/bar_install"
+install_path="./cmake_pkg/bar_install"
 build_type=Release
 
 echo

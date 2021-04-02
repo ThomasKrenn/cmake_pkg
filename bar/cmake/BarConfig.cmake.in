@@ -2,9 +2,6 @@ set(BAR_VERSION 1.2.3)
 
 @PACKAGE_INIT@
 
-# include(CMakeFindDependencyMacro)
-# find_dependency(Qt5Gui @REQUIRED_QT_VERSION@)
-
 include("${CMAKE_CURRENT_LIST_DIR}/BARTargets.cmake")
 
 macro(set_found _NAME _COMPONENTS)

@@ -18,8 +18,8 @@ then
  mkdir usepkg_install
 fi
 
-prefix_path=/home/tom/github.com/cmake_pkg/bar_install/cmake
-install_path=/home/tom/github.com/cmake_pkg/usepkg_install
+prefix_path=./cmake_pkg/bar_install/cmake
+install_path=./cmake_pkg/usepkg_install
 echo
 echo --------- cmake configure usepkg -----------
 cmake -DCMAKE_INSTALL_PREFIX=${install_path} -DCMAKE_PREFIX_PATH=${prefix_path} -G "Unix Makefiles" -B usepkg_build -S usepkg

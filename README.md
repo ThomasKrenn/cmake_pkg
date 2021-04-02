@@ -1,7 +1,6 @@
-# CMake Package Example
+### CMake Package Example
 
-## BAR is a CMake Package and exports the targets 'bar1' and 'bar2'
 
-More comments
-Even more comments
+An example CMake package to demonstrate how to export, install a package and how to import the export set from the package.
 
+[1] : [https://cmake.org/cmake/help/latest/module/CMakePackageConfigHelpers.html]()  

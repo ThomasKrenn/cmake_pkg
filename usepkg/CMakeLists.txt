@@ -10,8 +10,11 @@ cmake_minimum_required(VERSION 3.12)
 
 project(usepkg)
 
-
+#
+# find package debug helper
+#
 message(STATUS "CMAKE_PREFIX_PATH: ${CMAKE_PREFIX_PATH}")
+set(CMAKE_FIND_DEBUG_MODE TRUE)
 
 # If this variable is enabled, CMake automatically adds CMAKE_CURRENT_SOURCE_DIR 
 # and CMAKE_CURRENT_BINARY_DIR to the include path for each directory. These additional
@@ -23,7 +26,9 @@ message(STATUS "CMAKE_PREFIX_PATH: ${CMAKE_PREFIX_PATH}")
 
 
 # find_package(BAR)
-find_package(BAR COMPONENTS Bar1 Bar2 REQUIRED)
+find_package(BAR COMPONENTS Bar1 Bar2
+PATHS ../bar_install/cmake
+REQUIRED)
 
 
 file(GENERATE OUTPUT bar-gen CONTENT "<TARGET_FILE:BAR::Bar1>=$<TARGET_FILE:BAR::Bar1>\n")
