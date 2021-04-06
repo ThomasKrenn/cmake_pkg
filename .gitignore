@@ -7,7 +7,8 @@ usepkg_build/
 usepkg_install/
 bar_build/
 bar_install/
-
+cust_cmd_build/
+cust_cmd_install/
 
 
 # ignores list suggested by github

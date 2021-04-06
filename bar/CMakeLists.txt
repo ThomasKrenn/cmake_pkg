@@ -1,4 +1,4 @@
-cmake_minimum_required (VERSION 3.12)
+cmake_minimum_required (VERSION 3.13)
 
 # cd <buildir>
 # cmake -DCMAKE_INSTALL_PREFIX=<install dir> -G  "Visual Studio 16 2019" -A x64 ..
@@ -13,19 +13,51 @@ cmake_minimum_required (VERSION 3.12)
 # that can be used from the build tree.  
 # Set the CMAKE_PREFIX_PATH variable to import the <bar install tree>.
 #
-project(BAR)
+#
+# Version number of the project
+#
+file(STRINGS "VERSION" BARVersion LIMIT_COUNT 1)
+
+project(BAR
+   LANGUAGES C CXX
+   VERSION ${BARVersion}
+   HOMEPAGE_URL "github.com/ThomasKrenn/cmake_pkg"
+)
 
 
 message("CMAKE_SYSTEM_NAME: ${CMAKE_SYSTEM_NAME}")
+message("CMAKE_PROJECT_VERSION_MINOR: ${CMAKE_PROJECT_VERSION_MINOR}")
 
 set_property(GLOBAL PROPERTY USE_FOLDERS ON)
 set_property(GLOBAL PROPERTY PREDEFINED_TARGETS_FOLDER "CMakeBuild")
 set_property(GLOBAL PROPERTY AUTOGEN_TARGETS_FOLDER CMakeMoc)
 
-#set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/x64)
-#set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/x64)
-#set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/x64)
 
+# ${CMAKE_SOURCE_DIR}/src/buildinfo/
+#  -P ${CMAKE_SOURCE_DIR}/cmake/create-barversion.cmake
+#
+set(VERSION_IN   "${CMAKE_SOURCE_DIR}/VERSION")
+set(VERSION_TEMPL "${CMAKE_SOURCE_DIR}/cmake/bar_version.h.in")
+set(VERSION_HDR  "${CMAKE_BINARY_DIR}/src/buildinfo/bar_version.h")
+
+add_custom_command(OUTPUT "${VERSION_HDR}"
+                   COMMAND ${CMAKE_COMMAND}
+                     -E echo "## custom command Generate version information"
+
+                   COMMAND ${CMAKE_COMMAND}
+                     -DCONFIG_IN=${VERSION_IN}
+                     -DCONFIG_TEMPL=${VERSION_TEMPL}
+                     -DCONFIG_OUT=${VERSION_HDR}
+                     -P ${CMAKE_SOURCE_DIR}/cmake/create-barversion.cmake
+                   DEPENDS ${VERSION_IN}
+                   COMMENT Generate version information
+)
+
+# dummy target the triggers the custom command whenever the input changes
+add_custom_target(configure_version ALL  
+  SOURCES "${VERSION_HDR}"
+)
+                   
 #
 # global property component
 #

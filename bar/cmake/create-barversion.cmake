@@ -1,0 +1,21 @@
+
+message(STATUS "CMAKE_PROJECT_VERSION_MAJOR:" ${CMAKE_PROJECT_VERSION_MAJOR})
+message(STATUS "CONFIG_OUT:" ${CONFIG_OUT})
+
+
+file(STRINGS ${CONFIG_IN} BARVersion LIMIT_COUNT 1)
+
+message(STATUS "BARVersion:" ${BARVersion})
+
+string(REPLACE "." ";" VERSION_LIST ${BARVersion})
+list(GET VERSION_LIST 0 VERSION_MAJOR)
+list(GET VERSION_LIST 1 VERSION_MINOR)
+list(GET VERSION_LIST 2 VERSION_PATCH)
+set(VERSION_TWEAK 0)
+string(TIMESTAMP VERSION_DATE "%Y-%m-%d")
+
+
+configure_file(${CONFIG_TEMPL}
+               ${CONFIG_OUT}
+                
+)
