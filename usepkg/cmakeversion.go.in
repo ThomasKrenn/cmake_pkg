@@ -1,0 +1,20 @@
+package main
+
+	
+
+import "fmt"
+
+	
+
+func main() {
+    
+    var PROJECT_VERSION_MAJOR = @CMAKE_PROJECT_VERSION_MAJOR@
+    var PROJECT_VERSION_MINOR = @CMAKE_PROJECT_VERSION_MINOR@
+    var PROJECT_VERSION_PATCH = @CMAKE_PROJECT_VERSION_PATCH@
+    var PROJECT_VERSION_TWEAK = @CMAKE_PROJECT_VERSION_TWEAK@
+    var PROJECT_VERSION_DATE  = "@PROJECT_VERSION_DATE@"
+
+    fmt.Println("hello world")
+}
+
+
