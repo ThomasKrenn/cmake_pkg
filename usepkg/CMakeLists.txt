@@ -6,9 +6,30 @@
 # cmake -DCMAKE_INSTALL_PREFIX=<install dir> -G  "Unix Makefiles"  ..
 #
 
-cmake_minimum_required(VERSION 3.12)
+cmake_minimum_required(VERSION 3.20)
 
-project(usepkg)
+#
+# CMake 3.12 - CMAKE_PROJECT_VERSION 
+# Set of variables provides the version details
+#
+set(CMAKE_PROJECT_VERSION_MAJOR    3)
+set(CMAKE_PROJECT_VERSION_MINOR    4)
+set(CMAKE_PROJECT_VERSION_PATCH    5)
+set(CMAKE_PROJECT_VERSION_TWEAK    6)
+set(PROJECT_VERSION_DATE           "2021-01-02") 
+
+
+add_definitions(-DPKG_VERSION_MAJOR=${CMAKE_PROJECT_VERSION_MAJOR})
+add_definitions(-DPKG_VERSION_MINOR=${CMAKE_PROJECT_VERSION_MINOR})
+add_definitions(-DPKG_VERSION_REVISION=${CMAKE_PROJECT_VERSION_PATCH})
+add_definitions(-DPKG_VERSION_BUILD=${CMAKE_PROJECT_VERSION_TWEAK})
+add_definitions(-DPKG_VERSION_DATE=${PROJECT_VERSION_DATE})
+
+
+project(usepkg
+   HOMEPAGE_URL "github.com/ThomasKrenn/cmake_pkg"
+   VERSION ${CMAKE_PROJECT_VERSION_MAJOR}.${CMAKE_PROJECT_VERSION_MINOR}.${CMAKE_PROJECT_VERSION_PATCH}.${CMAKE_PROJECT_VERSION_TWEAK}
+)
 
 #
 # find package debug helper
@@ -74,6 +95,8 @@ elseif (CMAKE_SYSTEM_NAME MATCHES "Windows")
    set(CMAKE_INSTALL_INCLUDEDIR include)
 
 endif()
+
+configure_file(cmakeversion.go.in cmakeversion.go @ONLY)
 
 # -------------- DEBUG HELP -------------------------
 # get_cmake_property(_variableNames VARIABLES)
