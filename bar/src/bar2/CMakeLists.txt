@@ -66,6 +66,10 @@ target_compile_options(Bar2
   "$<$<PLATFORM_ID:Windows>:/W3>"
 )
 
+set_target_properties(Bar2 PROPERTIES
+  VERSION 2.3.4
+  SOVERSION 2
+)
 
 install(TARGETS Bar2
 EXPORT BarTargets
